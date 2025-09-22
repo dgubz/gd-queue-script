@@ -1,6 +1,7 @@
-const currentUrl = window.location.href;
-const urlParams = new URLSearchParams(new URL(currentUrl).search);
-const WORKER_URL = urlParams.get('worker'); // <-- Replace with your Worker URL
+const scriptEl = document.currentScript;
+const scriptSrc = scriptEl ? scriptEl.src : '';
+const urlParams = new URLSearchParams(new URL(scriptSrc).search);
+const WORKER_URL = urlParams.get('worker');
 
 // === Utility ===
 function escapeHtml(s){ return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
