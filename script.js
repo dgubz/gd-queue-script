@@ -1,6 +1,6 @@
 const currentUrl = window.location.href;
 const urlParams = new URLSearchParams(new URL(currentUrl).search);
-const WORKER_URL = params.get('worker'); // <-- Replace with your Worker URL
+const WORKER_URL = urlParams.get('worker'); // <-- Replace with your Worker URL
 
 // === Utility ===
 function escapeHtml(s){ return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
@@ -229,4 +229,5 @@ fetch(WORKER_URL)
       }
     });
   }).catch(()=>{});
+
 
