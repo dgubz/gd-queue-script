@@ -1,4 +1,6 @@
-const WORKER_URL = "https://gd-queue.dylanthedragon2011.workers.dev"; // <-- Replace with your Worker URL
+const currentUrl = window.location.href;
+const urlParams = new URLSearchParams(new URL(currentUrl).search);
+const WORKER_URL = params.get('worker')); // <-- Replace with your Worker URL
 
 // === Utility ===
 function escapeHtml(s){ return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
