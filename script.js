@@ -182,6 +182,11 @@ function addItem(username, idText) {
 // === Configurable prefixes ===
 const PREFIXES = ["!id", "!rq", "!level", "!request" "/id", "/rq", "/level", "/request"];
 
+// === State ===
+const seenIDs = new Set();            // globally used IDs
+const cooldowns = new Map();          // per-user last request time
+const COOLDOWN_MS = 300000;           // 5 minutes
+
 // === Bottom div check ===
 function checkBottomDiv() {
   if (!container) return;
@@ -210,11 +215,13 @@ function checkBottomDiv() {
   const username = nameSpan ? nameSpan.textContent.trim() : 'Unknown';
   const idText = match[0]; // first number found
 
+  // global uniqueness: no duplicate IDs
   if (seenIDs.has(idText)) return;
 
+  // per-user cooldown
   const now = Date.now();
   const last = cooldowns.get(username) || 0;
-  if (now - last < 5000) return;
+  if (now - last < COOLDOWN_MS) return;
 
   cooldowns.set(username, now);
   seenIDs.add(idText);
@@ -245,6 +252,7 @@ fetch(WORKER_URL)
       }
     });
   }).catch(()=>{});
+
 
 
 
