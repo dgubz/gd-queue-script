@@ -180,7 +180,7 @@ function addItem(username, idText) {
 
 // === Bottom div check ===
 // === Configurable prefixes ===
-const PREFIXES = ["!id", "!rq", "!level"];
+const PREFIXES = ["!id", "!rq", "!level", "!request" "/id", "/rq", "/level", "/request"];
 
 // === Bottom div check ===
 function checkBottomDiv() {
@@ -245,6 +245,7 @@ fetch(WORKER_URL)
       }
     });
   }).catch(()=>{});
+
 
 
 
