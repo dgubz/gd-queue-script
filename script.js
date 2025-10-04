@@ -179,6 +179,10 @@ function addItem(username, idText) {
 }
 
 // === Bottom div check ===
+// === Configurable prefixes ===
+const PREFIXES = ["!id", "!rq", "!level"];
+
+// === Bottom div check ===
 function checkBottomDiv() {
   if (!container) return;
   const divs = container.querySelectorAll('div');
@@ -190,11 +194,22 @@ function checkBottomDiv() {
   if (!messageSpan) return;
 
   const text = messageSpan.textContent.trim();
-  if (!text.startsWith('!id')) return;
+  const lower = text.toLowerCase();
+
+  // find prefix match
+  const prefix = PREFIXES.find(p => lower.startsWith(p.toLowerCase()));
+  if (!prefix) return;
+
+  // grab everything after prefix
+  const remainder = text.slice(prefix.length).trim();
+
+  // find the first all-numeric token
+  const match = remainder.match(/\b\d+\b/);
+  if (!match) return;
 
   const username = nameSpan ? nameSpan.textContent.trim() : 'Unknown';
-  const idText = text.slice(4).trim();
-  if (!/^\d+$/.test(idText)) return;
+  const idText = match[0]; // first number found
+
   if (seenIDs.has(idText)) return;
 
   const now = Date.now();
@@ -230,5 +245,6 @@ fetch(WORKER_URL)
       }
     });
   }).catch(()=>{});
+
 
 
