@@ -180,7 +180,7 @@ function addItem(username, idText) {
 
 // === Bottom div check ===
 // === Configurable prefixes ===
-const PREFIXES = ["!id", "!rq", "!level", "!request" "/id", "/rq", "/level", "/request"];
+const PREFIXES = ["!id", "!rq", "!level", "!request", "/id", "/rq", "/level", "/request"];
 
 // === State ===
 const seenIDs = new Set();            // globally used IDs
@@ -252,6 +252,7 @@ fetch(WORKER_URL)
       }
     });
   }).catch(()=>{});
+
 
 
 
